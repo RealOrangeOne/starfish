@@ -4,7 +4,7 @@ from pathlib import Path
 
 import coloredlogs
 
-from .config import read_config
+from .redirect import read_redirects
 
 
 def valid_input_file(arg: str):
@@ -28,10 +28,12 @@ def main():
     args.output = args.output.resolve()
     if args.output.exists():
         logging.warning(f"File '{args.output}' already exists, overriding")
-    config = read_config(args.input)
-    logging.info("Found %s redirect rules", len(config))
-    args.output.write_text("\n".join([redirect.as_caddy_rule() for redirect in config]))
-    logging.info("Wrote %s rules to %s", len(config), str(args.output))
+    redirects = read_redirects(args.input)
+    logging.info("Found %s redirects", len(redirects))
+    args.output.write_text(
+        "\n".join([redirect.as_caddy_site() for redirect in redirects])
+    )
+    logging.info("Wrote %s redirects to %s", len(redirects), str(args.output))
 
 
 if __name__ == "__main__":

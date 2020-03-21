@@ -6,7 +6,7 @@ import attr
 from furl import furl
 from ruamel import yaml
 
-CADDY_TEMPLATE = Template(
+CADDY_SITE_TEMPLATE = Template(
     """
 $source {
     redir $destination $status_code
@@ -29,8 +29,8 @@ class Redirect:
             destination += "{uri}"
         return destination
 
-    def as_caddy_rule(self) -> str:
-        return CADDY_TEMPLATE.substitute(
+    def as_caddy_site(self) -> str:
+        return CADDY_SITE_TEMPLATE.substitute(
             {
                 "source": self.source.url,
                 "destination": self.caddy_destination,
@@ -39,14 +39,14 @@ class Redirect:
         )
 
 
-def parse_config_entry(source: str, entry: Union[str, dict]) -> Redirect:
+def parse_redirect_entry(source: str, entry: Union[str, dict]) -> Redirect:
     if isinstance(entry, str):
         return Redirect(source=furl(source), destination=furl(entry))
     destination = entry.pop("destination")
     return Redirect(source=furl(source), destination=furl(destination), **entry)
 
 
-def read_config(path: Path) -> List[Redirect]:
+def read_redirects(path: Path) -> List[Redirect]:
     return [
-        parse_config_entry(k, v) for k, v in yaml.safe_load(path.read_text()).items()
+        parse_redirect_entry(k, v) for k, v in yaml.safe_load(path.read_text()).items()
     ]
