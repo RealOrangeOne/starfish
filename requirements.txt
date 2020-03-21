@@ -1,1 +1,4 @@
 coloredlogs==14.0
+ruamel.yaml==0.16.10
+attrs==19.3.0
+furl==2.1.0

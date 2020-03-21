@@ -4,6 +4,8 @@ from pathlib import Path
 
 import coloredlogs
 
+from .config import read_config
+
 
 def valid_input_file(arg: str):
     if not Path(arg).exists():
@@ -26,6 +28,9 @@ def main():
     args.output = args.output.resolve()
     if args.output.exists():
         logging.warning(f"File '{args.output}' already exists, overriding")
+    config = read_config(args.input)
+    logging.info("Found %s redirect rules", len(config))
+    print(config)
 
 
 if __name__ == "__main__":

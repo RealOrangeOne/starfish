@@ -1,0 +1,5 @@
+http://example.com: https://example.com
+http://test.example.com:
+  destination: https://example.com
+  status_code: 307
+  maintain_path: False
