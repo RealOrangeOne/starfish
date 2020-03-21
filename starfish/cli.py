@@ -6,6 +6,12 @@ import coloredlogs
 
 from .redirect import read_redirects
 
+CADDY_GLOBAL_OPTIONS = """
+{
+    admin off
+}
+"""
+
 
 def valid_input_file(arg: str):
     if not Path(arg).exists():
@@ -31,7 +37,8 @@ def main():
     redirects = read_redirects(args.input)
     logging.info("Found %s redirects", len(redirects))
     args.output.write_text(
-        "\n".join([redirect.as_caddy_site() for redirect in redirects])
+        CADDY_GLOBAL_OPTIONS
+        + "\n".join([redirect.as_caddy_site() for redirect in redirects])
     )
     logging.info("Wrote %s redirects to %s", len(redirects), str(args.output))
 
