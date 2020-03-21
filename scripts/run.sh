@@ -4,4 +4,4 @@ set -e
 
 PATH=env/bin:${PATH}
 
-python3 -m starfish
+python3 -m starfish $@
