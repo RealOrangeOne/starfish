@@ -30,7 +30,8 @@ def main():
         logging.warning(f"File '{args.output}' already exists, overriding")
     config = read_config(args.input)
     logging.info("Found %s redirect rules", len(config))
-    print(config)
+    args.output.write_text("\n".join([redirect.as_caddy_rule() for redirect in config]))
+    logging.info("Wrote %s rules to %s", len(config), str(args.output))
 
 
 if __name__ == "__main__":
