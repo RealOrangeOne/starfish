@@ -23,5 +23,5 @@ jobs:
       run: bash ./scripts/test.sh
     - name: Run
       run: |
-        bash ./scripts/run.sh starfish/example.yml /tmp/Caddyfile
+        bash ./scripts/run.sh starfish/example-redirects.yml /tmp/Caddyfile
         cat /tmp/Caddyfile
