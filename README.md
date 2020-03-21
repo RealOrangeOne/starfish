@@ -1,5 +1,8 @@
 # Starfish
 
+![Docker](https://github.com/RealOrangeOne/starfish/workflows/Docker/badge.svg)
+![Build](https://github.com/RealOrangeOne/starfish/workflows/Build/badge.svg)
+
 Starfish generates Caddy `Caddyfile` configurations based off a simple YAML file, to perform redirections.
 
 ## Requirements
