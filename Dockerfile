@@ -1,6 +1,6 @@
-FROM caddy/caddy:v2.0.0-beta.17-alpine as caddy
+FROM caddy:2-alpine as caddy
 
-FROM python:3.8.1-alpine3.11
+FROM python:3.8-alpine
 
 COPY --from=caddy /usr/bin/caddy /usr/bin/caddy
 
